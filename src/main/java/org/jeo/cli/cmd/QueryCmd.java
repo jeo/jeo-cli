@@ -14,18 +14,16 @@
  */
 package org.jeo.cli.cmd;
 
-import org.jeo.cli.JeoCLI;
-import org.jeo.data.Cursor;
-import org.jeo.util.Supplier;
-import org.jeo.vector.Feature;
-import org.jeo.vector.FeatureCursor;
-import org.jeo.vector.VectorDataset;
-import org.jeo.vector.VectorQuery;
-import org.jeo.filter.Filter;
-
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 import com.vividsolutions.jts.geom.Envelope;
+import org.jeo.cli.JeoCLI;
+import org.jeo.filter.Filter;
+import org.jeo.util.Pair;
+import org.jeo.util.Supplier;
+import org.jeo.vector.FeatureCursor;
+import org.jeo.vector.VectorDataset;
+import org.jeo.vector.VectorQuery;
 import org.jeo.vector.VectorQueryPlan;
 
 import java.util.List;
@@ -75,28 +73,10 @@ public class QueryCmd extends VectorCmd {
             q.fields(props);
         }
 
-        FeatureCursor cursor = null;
-        VectorDataset data = null;
-        if (dataRef != null) {
-            data = openVectorDataset(dataRef).orElseThrow(new Supplier<RuntimeException>() {
-                @Override
-                public RuntimeException get() {
-                    return new IllegalArgumentException(format("%s is not a data set", dataRef));
-                }
-            });
-            cursor = data.cursor(q);
-        }
-        else {
-            // look for a direct cursor from stdin
-            cursor = cursorFromStdin(cli);
-            cursor = new VectorQueryPlan(q).apply(cursor);
-        }
+        Pair<FeatureCursor,VectorDataset> input = input(dataRef, q, cli);
 
-        try {
-            sink.encode(cursor, data, cli);
-        }
-        finally {
-            cursor.close();
+        try (FeatureCursor cursor = input.first) {
+            sink.encode(cursor, input.second, cli);
         }
     }
 }
