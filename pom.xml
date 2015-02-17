@@ -93,7 +93,7 @@
         <artifactId>appassembler-maven-plugin</artifactId>
         <version>1.2.2</version>
         <configuration>
-          <extraJvmArguments>-Xmx1024m -XX:MaxPermSize=128m</extraJvmArguments>
+          <extraJvmArguments>-Xmx1024m</extraJvmArguments>
           <assembleDirectory>${project.build.directory}/app</assembleDirectory>
           <repositoryLayout>flat</repositoryLayout>
           <repositoryName>lib</repositoryName>
