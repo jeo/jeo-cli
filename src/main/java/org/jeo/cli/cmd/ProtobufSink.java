@@ -18,12 +18,8 @@ public class ProtobufSink implements VectorSink {
     public void encode(Cursor<Feature> cursor, VectorDataset source, JeoCLI cli) throws IOException {
         try (ProtobufWriter writer = new ProtobufWriter(cli.output())) {
             cursor = cursor.buffer(1);
-            Schema schema = cursor.first().orElseThrow(new Supplier<RuntimeException>() {
-                @Override
-                public RuntimeException get() {
-                    return new IllegalArgumentException("No data to write");
-                }
-            }).schema();
+            Schema schema = cursor.first().orElseThrow(
+                () -> new IllegalArgumentException("No data to write")).schema();
 
             writer.schema(schema);
             cursor.rewind();

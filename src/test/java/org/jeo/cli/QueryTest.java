@@ -1,14 +1,10 @@
 package org.jeo.cli;
 
 import com.google.common.collect.Sets;
-import com.vividsolutions.jts.geom.Envelope;
 import org.jeo.data.Cursor;
-import org.jeo.data.Cursors;
 import org.jeo.data.mem.MemWorkspace;
 import org.jeo.data.mem.Memory;
-import org.jeo.geojson.GeoJSONReader;
 import org.jeo.protobuf.ProtobufReader;
-import org.jeo.util.Consumer;
 import org.jeo.vector.Feature;
 import org.jeo.vector.Schema;
 import org.jeo.vector.VectorDataset;
@@ -47,12 +43,7 @@ public class QueryTest extends CLITestSupport {
         cli.handle("query", "-i", "mem://test#states", "-b", "-106.649513,25.845198,-93.507217,36.493877");
 
         final Set<String> abbrs = Sets.newHashSet("MO", "OK", "TX", "NM", "AR", "LA");
-        featureOutput().forEach(new Consumer<Feature>() {
-            @Override
-            public void accept(Feature f) {
-                abbrs.remove(f.get("STATE_ABBR"));
-            }
-        });
+        featureOutput().each(f -> abbrs.remove(f.get("STATE_ABBR")));
 
         assertTrue(abbrs.isEmpty());
     }
