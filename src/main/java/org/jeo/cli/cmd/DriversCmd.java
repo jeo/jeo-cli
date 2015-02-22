@@ -29,6 +29,9 @@ import org.jeo.util.Key;
 
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
+import org.jeo.util.Messages;
+
+import static java.lang.String.format;
 
 @Parameters(commandNames="drivers", commandDescription="List available format drivers")
 public class DriversCmd extends JeoCmd {
@@ -112,5 +115,22 @@ public class DriversCmd extends JeoCmd {
             w.value(a);
         }
         w.endArray();
+
+        Messages msgs = new Messages();
+        if (!drv.isEnabled(msgs)) {
+            w.key("enabled").value(false);
+
+            List<Throwable> errors = msgs.list();
+            if (!errors.isEmpty()) {
+                w.key("messages").array();
+                for (Throwable t : errors) {
+                    w.value(format("%s: %s", t.getClass().getName(), t.getMessage()));
+                }
+                w.endArray();
+            }
+
+        }
+
+        //w.key("enabled").value(drv.isEnabled(msgs));
     }
 }
