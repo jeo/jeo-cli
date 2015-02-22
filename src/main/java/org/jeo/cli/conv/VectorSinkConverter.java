@@ -1,6 +1,7 @@
 package org.jeo.cli.conv;
 
 import com.beust.jcommander.IStringConverter;
+import org.jeo.cli.Util;
 import org.jeo.cli.cmd.DatasetSink;
 import org.jeo.cli.cmd.GeoJSONSink;
 import org.jeo.cli.cmd.JeoCmd;
@@ -12,7 +13,6 @@ import org.jeo.data.Driver;
 import org.jeo.data.Drivers;
 import org.jeo.data.Workspace;
 import org.jeo.util.Pair;
-import org.neo4j.kernel.impl.transaction.IllegalResourceException;
 
 import java.net.URI;
 
@@ -28,7 +28,7 @@ public class VectorSinkConverter implements IStringConverter<VectorSink> {
 
         Pair<URI,String> ref = null;
         try {
-            ref = JeoCmd.parseDataURI(str);
+            ref = Util.parseDataURI(str);
         }
         catch(IllegalArgumentException e) {
             throw new IllegalArgumentException("Unrecognized output: " + str);
@@ -39,14 +39,14 @@ public class VectorSinkConverter implements IStringConverter<VectorSink> {
             throw new IllegalArgumentException("No driver found for: " + ref.first);
         }
 
-        if (Workspace.class.isAssignableFrom(drv.getType())) {
+        if (Workspace.class.isAssignableFrom(drv.type())) {
             return new WorkspaceSink(ref);
         }
-        else if (Dataset.class.isAssignableFrom(drv.getType())) {
+        else if (Dataset.class.isAssignableFrom(drv.type())) {
             return new DatasetSink(ref);
         }
         else {
-            throw new IllegalArgumentException("Unsupported driver type: " + drv.getName());
+            throw new IllegalArgumentException("Unsupported driver type: " + drv.name());
         }
     }
 }

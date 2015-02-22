@@ -58,7 +58,7 @@ public class DriversCmd extends JeoCmd {
                 printBrief(drv, w);
 
                 w.key("type");
-                Class<?> type = drv.getType();
+                Class<?> type = drv.type();
                 if (Workspace.class.isAssignableFrom(type)) {
                     w.value("workspace");
                 }
@@ -69,11 +69,11 @@ public class DriversCmd extends JeoCmd {
                     w.value("style");
                 }
                 else {
-                    w.value(drv.getType().getSimpleName());
+                    w.value(drv.type().getSimpleName());
                 }
 
                 w.key("keys").object();
-                for (Key<?> key : drv.getKeys()) {
+                for (Key<?> key : drv.keys()) {
                     w.key(key.getName()).object();
                     w.key("type").value(key.getType().getSimpleName());
                     if (key.getDefault() != null) {
@@ -108,10 +108,10 @@ public class DriversCmd extends JeoCmd {
     }
 
     void printBrief(Driver<?> drv, GeoJSONWriter w) throws IOException {
-        w.key("name").value(drv.getName());
+        w.key("name").value(drv.name());
         
         w.key("aliases").array();
-        for (String a : drv.getAliases()) {
+        for (String a : drv.aliases()) {
             w.value(a);
         }
         w.endArray();

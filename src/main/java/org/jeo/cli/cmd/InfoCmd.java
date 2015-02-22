@@ -17,6 +17,7 @@ package org.jeo.cli.cmd;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 import org.jeo.cli.JeoCLI;
+import org.jeo.cli.Util;
 import org.jeo.data.*;
 import org.jeo.filter.Filters;
 import org.jeo.json.JeoJSONWriter;
@@ -39,7 +40,7 @@ public class InfoCmd extends JeoCmd {
         JeoJSONWriter w = cli.newJSONWriter();
 
         for (String data : datas) {
-            Pair<URI,String> uri = parseDataURI(data);
+            Pair<URI,String> uri = Util.parseDataURI(data);
 
             try {
                 Object obj = Drivers.open(uri.first);
