@@ -14,18 +14,15 @@
  */
 package org.jeo.cli.cmd;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.ArrayDeque;
-import java.util.Deque;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.jeo.cli.JeoCLI;
+import org.jeo.cli.Util;
 import org.jeo.data.Dataset;
 import org.jeo.data.Disposable;
 
@@ -109,41 +106,10 @@ public abstract class JeoCmd {
     }
 
     /**
-     * Parses a data uri.
-     * <p>
-     * The fragment is stripped off the uri and returned separately.
-     * </p>
-     * @return A pair of (base uri, fragment)
-     */
-    public static Pair<URI,String> parseDataURI(String str) {
-        try {
-            URI uri = new URI(str);
-            if (uri.getScheme() == null) {
-                //assume a file based uri
-                URI tmp = new File(uri.getPath()).toURI();
-                uri = uri.getFragment() != null ?
-                    new URI(tmp.getScheme(), null, tmp.getPath(), uri.getFragment()) : tmp;
-            }
-
-            // strip off fragment
-            String frag = uri.getFragment();
-            if (frag != null) {
-                uri = new URI(
-                    uri.getScheme(), uri.getUserInfo(), uri.getHost(), uri.getPort(), uri.getPath(), uri.getQuery(), null);
-            }
-
-            return Pair.of(uri, frag);
-        }
-        catch(URISyntaxException e) {
-            throw new IllegalArgumentException("Invalid data source uri: " + str, e);
-        }
-    }
-
-    /**
      * Opens a dataset from a data uri.
      */
     protected Optional<Dataset> openDataset(String ref) throws IOException {
-        Pair<URI,String> uri = parseDataURI(ref);
+        Pair<URI,String> uri = Util.parseDataURI(ref);
 
         Dataset dataset;
 

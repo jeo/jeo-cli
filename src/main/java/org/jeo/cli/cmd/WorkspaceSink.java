@@ -14,14 +14,17 @@
  */
 package org.jeo.cli.cmd;
 
+import com.google.common.base.Throwables;
 import org.jeo.cli.ConsoleProgress;
 import org.jeo.cli.JeoCLI;
+import org.jeo.cli.Util;
 import org.jeo.data.Cursor;
 import org.jeo.data.Drivers;
 import org.jeo.data.Transaction;
 import org.jeo.data.Transactional;
 import org.jeo.data.Workspace;
 import org.jeo.util.Disposer;
+import org.jeo.util.Optional;
 import org.jeo.util.Pair;
 import org.jeo.util.Supplier;
 import org.jeo.vector.Feature;
@@ -30,6 +33,8 @@ import org.jeo.vector.Features;
 import org.jeo.vector.Schema;
 import org.jeo.vector.VectorDataset;
 import org.jeo.vector.VectorQuery;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URI;
@@ -40,6 +45,9 @@ import static java.lang.String.format;
  * Vector sink that writes data into a new dataset of a workspace.
  */
 public class WorkspaceSink implements VectorSink {
+
+    static Logger LOG = LoggerFactory.getLogger(WorkspaceSink.class);
+
     Pair<URI, String> ref;
 
     public WorkspaceSink(Pair<URI,String> ref) {
@@ -80,7 +88,7 @@ public class WorkspaceSink implements VectorSink {
 
             try {
                 VectorDataset dataset = disposer.open(dest.create(schema));
-                copy(cursor, dataset, source, disposer, cli);
+                Util.copy(cursor, dataset, source, cli);
             }
             catch(UnsupportedOperationException e) {
                 throw new IllegalStateException(format("Workspace %s does not support creating data sets", ref.first));
@@ -89,23 +97,5 @@ public class WorkspaceSink implements VectorSink {
         }
     }
 
-    void copy(Cursor<Feature> cursor, VectorDataset dataset, VectorDataset source, Disposer disposer, JeoCLI cli)
-            throws IOException {
 
-        Transaction tx = dataset instanceof Transactional ? ((Transactional) dataset).transaction(null) : null;
-        FeatureCursor target = disposer.open(dataset.cursor(new VectorQuery().append().transaction(tx)));
-
-        ConsoleProgress progress = cli.progress(-1);
-        if (source != null) {
-            progress.init((int) source.count(new VectorQuery()));
-        }
-
-        for (Feature f : cursor) {
-            progress.inc();
-
-            Feature g = target.next();
-            Features.copy(f, g);
-            target.write();
-        }
-    }
 }
