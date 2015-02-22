@@ -46,6 +46,11 @@
     </dependency>
     <dependency>
       <groupId>org.jeo</groupId>
+      <artifactId>jeo-gdal</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jeo</groupId>
       <artifactId>jeo-carto</artifactId>
       <version>${project.version}</version>
     </dependency>
@@ -93,7 +98,7 @@
         <artifactId>appassembler-maven-plugin</artifactId>
         <version>1.2.2</version>
         <configuration>
-          <extraJvmArguments>-Xmx1024m</extraJvmArguments>
+          <extraJvmArguments>-Xmx1024m -Djava.library.path=$BASEDIR/ext</extraJvmArguments>
           <assembleDirectory>${project.build.directory}/app</assembleDirectory>
           <repositoryLayout>flat</repositoryLayout>
           <repositoryName>lib</repositoryName>
@@ -132,16 +137,6 @@
   </build>
  
   <profiles>
-    <profile>
-      <id>gdal</id>
-      <dependencies>
-        <dependency>
-          <groupId>org.jeo</groupId>
-          <artifactId>jeo-gdal</artifactId>
-          <version>${project.version}</version>
-        </dependency>
-      </dependencies>
-    </profile>
     <profile>
       <id>geotools</id>
       <dependencies>
