@@ -18,6 +18,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 
 import com.google.common.io.ByteStreams;
@@ -25,6 +26,8 @@ import com.google.common.io.ByteStreams;
 import org.jeo.TestData;
 import org.jeo.data.mem.Memory;
 import org.jeo.geojson.GeoJSONReader;
+import org.jeo.json.parser.JSONParser;
+import org.jeo.json.parser.ParseException;
 import org.jeo.vector.FeatureCursor;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -86,5 +89,19 @@ public class CLITestSupport {
     protected FeatureCursor featureOutput() throws IOException {
         GeoJSONReader reader = new GeoJSONReader();
         return reader.features(output());
+    }
+
+    /**
+     * Returns the command output as a JSON object.
+     * <p>
+     * This method will return either a {@link org.jeo.json.JSONObject} or {@link org.jeo.json.JSONArray}.
+     * </p>
+     */
+    protected Object jsonOutput() throws IOException {
+        try {
+            return new JSONParser().parse(new InputStreamReader(output()));
+        } catch (ParseException e) {
+            throw new IOException(e);
+        }
     }
 }
