@@ -19,12 +19,9 @@ import com.beust.jcommander.Parameters;
 import org.jeo.cli.JeoCLI;
 import org.jeo.cli.Util;
 import org.jeo.data.*;
-import org.jeo.filter.Filters;
 import org.jeo.json.JeoJSONWriter;
-import org.jeo.map.Style;
 import org.jeo.util.Pair;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.util.List;
@@ -42,38 +39,12 @@ public class InfoCmd extends JeoCmd {
         for (String data : datas) {
             Pair<URI,String> uri = Util.parseDataURI(data);
 
-            try {
-                Object obj = Drivers.open(uri.first);
-                if (obj == null) {
-                    throw new IllegalArgumentException("Unable to open data source: " + uri);
-                }
-    
-                print(obj, w, cli);
+            Object obj = Drivers.open(uri.first);
+            if (obj == null) {
+                throw new IllegalArgumentException("Unable to open data source: " + uri);
             }
-            catch(Exception e) {
-                // try to parse input as file
-                File f = null;
-                try {
-                    f = new File(uri.first);
-                }
-                catch(Exception e2) {}
 
-                if (f != null && f.exists() && f.isDirectory()) {
-                    DirectoryRepository reg = new DirectoryRepository(f);
-                    try {
-                        for (Handle<?> h : reg.query(Filters.all())) {
-                            print(h.resolve(), w, cli);
-                        }
-                    }
-                    finally {
-                        reg.close();
-                    }
-                }
-                else {
-                    // no luck, return original exception
-                    throw e;
-                }
-            }
+            print(obj, w, cli);
         }
     }
 
@@ -83,9 +54,6 @@ public class InfoCmd extends JeoCmd {
         }
         else if (obj instanceof Dataset) {
             print((Dataset)obj, w, cli);
-        }
-        else if (obj instanceof Style) {
-            print((Style)obj, w, cli);
         }
         else {
             throw new IllegalArgumentException(
@@ -99,9 +67,5 @@ public class InfoCmd extends JeoCmd {
 
     void print(Workspace workspace, JeoJSONWriter w, JeoCLI cli) throws IOException {
         w.workspace(workspace);
-    }
-
-    void print(Style style, JeoJSONWriter w, JeoCLI cli) throws IOException {
-        cli.console().getOutput().write(style.toString());
     }
 }

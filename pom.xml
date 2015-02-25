@@ -24,11 +24,6 @@
   <dependencies>
     <dependency>
       <groupId>org.jeo</groupId>
-      <artifactId>jeo-geogit</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jeo</groupId>
       <artifactId>jeo-csv</artifactId>
       <version>${project.version}</version>
     </dependency>
@@ -55,16 +50,6 @@
     <dependency>
       <groupId>org.jeo</groupId>
       <artifactId>jeo-gdal</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jeo</groupId>
-      <artifactId>jeo-carto</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jeo.contrib</groupId>
-      <artifactId>jeo-nano</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>

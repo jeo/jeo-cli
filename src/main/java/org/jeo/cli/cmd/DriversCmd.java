@@ -24,7 +24,6 @@ import org.jeo.data.Driver;
 import org.jeo.data.Drivers;
 import org.jeo.data.Workspace;
 import org.jeo.geojson.GeoJSONWriter;
-import org.jeo.map.Style;
 import org.jeo.util.Key;
 
 import com.beust.jcommander.Parameter;
@@ -83,9 +82,6 @@ public class DriversCmd extends JeoCmd {
                 }
                 else if (Dataset.class.isAssignableFrom(type)) {
                     w.value("dataset");
-                }
-                else if (Style.class.isAssignableFrom(type)) {
-                    w.value("style");
                 }
                 else {
                     w.value(drv.type().getSimpleName());
