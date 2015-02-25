@@ -1,0 +1,12 @@
+language: java
+script:
+  - mvn clean install -Djava.awt.headless=true
+jdk:
+  - oraclejdk8
+notifications:
+  email:
+    recipients:
+      - jeo-dev@googlegroups.com
+    on_success: change
+    on_failure: always
+
