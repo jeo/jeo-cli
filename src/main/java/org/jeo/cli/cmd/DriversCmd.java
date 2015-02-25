@@ -57,6 +57,25 @@ public class DriversCmd extends JeoCmd {
                 w.object();
                 printBrief(drv, w);
 
+                w.key("aliases").array();
+                for (String a : drv.aliases()) {
+                    w.value(a);
+                }
+                w.endArray();
+
+
+                Messages msgs = new Messages();
+                if (!drv.isEnabled(msgs)) {
+                    List<Throwable> errors = msgs.list();
+                    if (!errors.isEmpty()) {
+                        w.key("messages").array();
+                        for (Throwable t : errors) {
+                            w.value(format("%s: %s", t.getClass().getName(), t.getMessage()));
+                        }
+                        w.endArray();
+                    }
+                }
+
                 w.key("type");
                 Class<?> type = drv.type();
                 if (Workspace.class.isAssignableFrom(type)) {
@@ -109,28 +128,6 @@ public class DriversCmd extends JeoCmd {
 
     void printBrief(Driver<?> drv, GeoJSONWriter w) throws IOException {
         w.key("name").value(drv.name());
-        
-        w.key("aliases").array();
-        for (String a : drv.aliases()) {
-            w.value(a);
-        }
-        w.endArray();
-
-        Messages msgs = new Messages();
-        if (!drv.isEnabled(msgs)) {
-            w.key("enabled").value(false);
-
-            List<Throwable> errors = msgs.list();
-            if (!errors.isEmpty()) {
-                w.key("messages").array();
-                for (Throwable t : errors) {
-                    w.value(format("%s: %s", t.getClass().getName(), t.getMessage()));
-                }
-                w.endArray();
-            }
-
-        }
-
-        //w.key("enabled").value(drv.isEnabled(msgs));
+        w.key("enabled").value(drv.isEnabled(null));
     }
 }
