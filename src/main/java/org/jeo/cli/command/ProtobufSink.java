@@ -1,9 +1,8 @@
-package org.jeo.cli.cmd;
+package org.jeo.cli.command;
 
 import org.jeo.cli.JeoCLI;
 import org.jeo.data.Cursor;
 import org.jeo.protobuf.ProtobufWriter;
-import org.jeo.util.Supplier;
 import org.jeo.vector.Feature;
 import org.jeo.vector.Schema;
 import org.jeo.vector.VectorDataset;

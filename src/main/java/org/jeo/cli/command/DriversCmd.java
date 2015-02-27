@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jeo.cli.cmd;
+package org.jeo.cli.command;
 
 import java.io.IOException;
 import java.util.Iterator;

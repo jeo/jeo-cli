@@ -1,15 +1,12 @@
-package org.jeo.cli.cmd;
+package org.jeo.cli.command;
 
 import org.jeo.cli.JeoCLI;
-import org.jeo.data.Cursor;
 import org.jeo.data.Dataset;
 import org.jeo.protobuf.ProtobufCursor;
 import org.jeo.protobuf.ProtobufReader;
 import org.jeo.util.Function;
 import org.jeo.util.Optional;
 import org.jeo.util.Pair;
-import org.jeo.util.Predicate;
-import org.jeo.vector.Feature;
 import org.jeo.vector.FeatureCursor;
 import org.jeo.vector.VectorDataset;
 import org.jeo.vector.VectorQuery;

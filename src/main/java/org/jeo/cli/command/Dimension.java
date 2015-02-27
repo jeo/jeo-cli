@@ -1,4 +1,4 @@
-/* Copyright 2013 The jeo project. All rights reserved.
+/* Copyright 2014 The jeo project. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,27 +12,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jeo.cli.cmd;
+package org.jeo.cli.command;
 
-import org.jeo.Jeo;
-import org.jeo.cli.JeoCLI;
+/**
+ * Rendering dimensions, width and height.
+ *
+ * @author Justin Deoliveira, Boundless
+ */
+public class Dimension {
+    final int width;
+    final int height;
 
-import com.beust.jcommander.Parameter;
-
-public class RootCmd extends JeoCmd {
-
-    @Parameter(names={"-v", "--version"}, description="Prints version info", help=true)
-    boolean version;
-
-    @Override
-    protected void run(JeoCLI cli) throws Exception {
-        if (version) {
-            Jeo.printVersionInfo(cli.stream());
-        }
+    public Dimension(int width, int height) {
+        this.width = width;
+        this.height = height;
     }
 
     @Override
-    public void usage(JeoCLI cli) {
-        cli.usage();
+    public String toString() {
+        return String.format("%d,%d", width, height);
     }
 }

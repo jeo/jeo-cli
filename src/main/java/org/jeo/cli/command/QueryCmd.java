@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jeo.cli.cmd;
+package org.jeo.cli.command;
 
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
@@ -20,11 +20,9 @@ import com.vividsolutions.jts.geom.Envelope;
 import org.jeo.cli.JeoCLI;
 import org.jeo.filter.Filter;
 import org.jeo.util.Pair;
-import org.jeo.util.Supplier;
 import org.jeo.vector.FeatureCursor;
 import org.jeo.vector.VectorDataset;
 import org.jeo.vector.VectorQuery;
-import org.jeo.vector.VectorQueryPlan;
 
 import java.util.List;
 

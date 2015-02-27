@@ -15,4 +15,4 @@
 /**
  * CLI commands.
  */
-package org.jeo.cli.cmd;
+package org.jeo.cli.command;

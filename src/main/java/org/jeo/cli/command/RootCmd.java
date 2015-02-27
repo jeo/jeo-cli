@@ -12,7 +12,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * CLI converters.
- */
-package org.jeo.cli.conv;
+package org.jeo.cli.command;
+
+import org.jeo.Jeo;
+import org.jeo.cli.JeoCLI;
+
+import com.beust.jcommander.Parameter;
+
+public class RootCmd extends JeoCmd {
+
+    @Parameter(names={"-v", "--version"}, description="Prints version info", help=true)
+    boolean version;
+
+    @Override
+    protected void run(JeoCLI cli) throws Exception {
+        if (version) {
+            Jeo.printVersionInfo(cli.stream());
+        }
+    }
+
+    @Override
+    public void usage(JeoCLI cli) {
+        cli.usage();
+    }
+}

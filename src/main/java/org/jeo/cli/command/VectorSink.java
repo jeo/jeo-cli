@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jeo.cli.cmd;
+package org.jeo.cli.command;
 
 import org.jeo.cli.JeoCLI;
 import org.jeo.data.Cursor;
@@ -20,7 +20,6 @@ import org.jeo.vector.Feature;
 import org.jeo.vector.VectorDataset;
 
 import java.io.IOException;
-import java.io.OutputStream;
 
 /**
  * Abstraction for the vector output of a cli command.

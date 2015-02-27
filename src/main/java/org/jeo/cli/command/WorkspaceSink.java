@@ -12,27 +12,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jeo.cli.cmd;
+package org.jeo.cli.command;
 
-import com.google.common.base.Throwables;
-import org.jeo.cli.ConsoleProgress;
 import org.jeo.cli.JeoCLI;
 import org.jeo.cli.Util;
 import org.jeo.data.Cursor;
 import org.jeo.data.Drivers;
-import org.jeo.data.Transaction;
-import org.jeo.data.Transactional;
 import org.jeo.data.Workspace;
 import org.jeo.util.Disposer;
-import org.jeo.util.Optional;
 import org.jeo.util.Pair;
 import org.jeo.util.Supplier;
 import org.jeo.vector.Feature;
-import org.jeo.vector.FeatureCursor;
-import org.jeo.vector.Features;
 import org.jeo.vector.Schema;
 import org.jeo.vector.VectorDataset;
-import org.jeo.vector.VectorQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

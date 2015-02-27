@@ -12,22 +12,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jeo.cli.conv;
+package org.jeo.cli.convert;
+
+import org.jeo.filter.Filter;
+import org.jeo.filter.cql.CQL;
+import org.jeo.filter.cql.ParseException;
 
 import com.beust.jcommander.IStringConverter;
-import com.vividsolutions.jts.geom.Envelope;
 
-public class EnvelopeConverter implements IStringConverter<Envelope> {
+public class FilterConverter implements IStringConverter<Filter> {
 
     @Override
-    public Envelope convert(String str) {
-        String[] split = str.split(",");
-        if (split.length != 4) {
-            throw new IllegalArgumentException("bbox syntax: <xmin,ymin,xmax,ymax>");
+    public Filter convert(String str) {
+        try {
+            return CQL.parse(str);
+        } catch (ParseException e) {
+            throw new IllegalArgumentException(e.getMessage(), e);
         }
-
-        return new Envelope(Double.parseDouble(split[0]), Double.parseDouble(split[2]), 
-            Double.parseDouble(split[1]), Double.parseDouble(split[3]));
     }
 
 }

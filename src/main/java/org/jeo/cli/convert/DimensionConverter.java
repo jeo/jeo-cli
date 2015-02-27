@@ -12,9 +12,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jeo.cli.conv;
+package org.jeo.cli.convert;
 
-import org.jeo.cli.cmd.Dimension;
+import org.jeo.cli.command.Dimension;
 
 import com.beust.jcommander.IStringConverter;
 

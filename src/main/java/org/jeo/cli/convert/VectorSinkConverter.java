@@ -1,13 +1,12 @@
-package org.jeo.cli.conv;
+package org.jeo.cli.convert;
 
 import com.beust.jcommander.IStringConverter;
 import org.jeo.cli.Util;
-import org.jeo.cli.cmd.DatasetSink;
-import org.jeo.cli.cmd.GeoJSONSink;
-import org.jeo.cli.cmd.JeoCmd;
-import org.jeo.cli.cmd.ProtobufSink;
-import org.jeo.cli.cmd.VectorSink;
-import org.jeo.cli.cmd.WorkspaceSink;
+import org.jeo.cli.command.DatasetSink;
+import org.jeo.cli.command.GeoJSONSink;
+import org.jeo.cli.command.ProtobufSink;
+import org.jeo.cli.command.VectorSink;
+import org.jeo.cli.command.WorkspaceSink;
 import org.jeo.data.Dataset;
 import org.jeo.data.Driver;
 import org.jeo.data.Drivers;

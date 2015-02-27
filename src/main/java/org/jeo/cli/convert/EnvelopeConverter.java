@@ -1,4 +1,4 @@
-/* Copyright 2014 The jeo project. All rights reserved.
+/* Copyright 2013 The jeo project. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,26 +12,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jeo.cli.conv;
-
-import java.util.Map;
+package org.jeo.cli.convert;
 
 import com.beust.jcommander.IStringConverter;
-import com.google.common.collect.Maps;
+import com.vividsolutions.jts.geom.Envelope;
 
-public class MapConverter implements IStringConverter<java.util.Map<String,String>>{
+public class EnvelopeConverter implements IStringConverter<Envelope> {
 
     @Override
-    public Map<String, String> convert(String value) {
-        Map<String,String> map = Maps.newLinkedHashMap();
-        String[] entries = value.split("; *");
-        for (String e : entries) {
-            String[] kv = e.split(" *= *");
-            if (kv.length > 0) {
-                map.put(kv[0], kv.length > 1 ? kv[1] : null);
-            }
+    public Envelope convert(String str) {
+        String[] split = str.split(",");
+        if (split.length != 4) {
+            throw new IllegalArgumentException("bbox syntax: <xmin,ymin,xmax,ymax>");
         }
-        return map;
+
+        return new Envelope(Double.parseDouble(split[0]), Double.parseDouble(split[2]), 
+            Double.parseDouble(split[1]), Double.parseDouble(split[3]));
     }
 
 }
