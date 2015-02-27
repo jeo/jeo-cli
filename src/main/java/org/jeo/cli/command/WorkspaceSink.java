@@ -72,7 +72,7 @@ public class WorkspaceSink implements VectorSink {
                 schema = Schema.build(dsName).fields(schema.getFields()).schema();
             }
 
-            dsName = schema.getName();
+            dsName = schema.name();
             if (disposer.open(dest.get(dsName)) != null) {
                 throw new IllegalStateException(
                 format("Data set %s already exists in workspace %s", dsName, ref.first));
