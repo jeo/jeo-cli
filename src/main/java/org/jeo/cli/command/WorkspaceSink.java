@@ -24,6 +24,7 @@ import org.jeo.util.Pair;
 import org.jeo.util.Supplier;
 import org.jeo.vector.Feature;
 import org.jeo.vector.Schema;
+import org.jeo.vector.SchemaBuilder;
 import org.jeo.vector.VectorDataset;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,12 +58,8 @@ public class WorkspaceSink implements VectorSink {
             // buffer the cursor to read the first feature
             cursor = cursor.buffer(1);
 
-            Schema schema = cursor.first().orElseThrow(new Supplier<RuntimeException>() {
-                @Override
-                public RuntimeException get() {
-                    return new IllegalArgumentException("No data to write");
-                }
-            }).schema();
+            Schema schema = cursor.first()
+                .orElseThrow(() -> new IllegalArgumentException("No data to write")).schema();
 
             cursor.rewind();
 
