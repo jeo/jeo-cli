@@ -69,7 +69,7 @@ public class WorkspaceSink implements VectorSink {
             String dsName = ref.second;
             if (dsName != null) {
                 // rename the schema
-                schema = Schema.build(dsName).fields(schema.getFields()).schema();
+                schema = SchemaBuilder.rename(schema, dsName);
             }
 
             dsName = schema.name();
