@@ -23,6 +23,7 @@ import org.jeo.util.Pair;
 import org.jeo.vector.FeatureCursor;
 import org.jeo.vector.VectorDataset;
 import org.jeo.vector.VectorQuery;
+import org.osgeo.proj4j.CoordinateReferenceSystem;
 
 import java.util.List;
 
@@ -49,6 +50,9 @@ public class QueryCmd extends VectorCmd {
     @Parameter(names = {"-p", "--props" }, description = "Feature properties to include, comma separated")
     List<String> props;
 
+    @Parameter(names = {"-c", "--crs"}, description = "Projection of input")
+    CoordinateReferenceSystem crs;
+
     @Parameter(names = {"-o", "--output"}, description = "Output for results")
     VectorSink sink = new GeoJSONSink();
 
@@ -73,8 +77,16 @@ public class QueryCmd extends VectorCmd {
 
         Pair<FeatureCursor,VectorDataset> input = input(dataRef, q, cli);
 
-        try (FeatureCursor cursor = input.first) {
+        FeatureCursor cursor = input.first;
+        if (crs != null) {
+            cursor = cursor.crs(crs);
+        }
+
+        try {
             sink.encode(cursor, input.second, cli);
+        }
+        finally {
+            cursor.close();
         }
     }
 }
