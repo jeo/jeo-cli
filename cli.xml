@@ -23,11 +23,11 @@
       <fileMode>0755</fileMode>
     </fileSet>
     <fileSet>
-      <outputDirectory>/ext</outputDirectory>
-      <directory>./</directory>
-      <excludes>
-        <exclude>**/*</exclude>
-      </excludes>
+      <outputDirectory>/</outputDirectory>
+      <directory>src/main/assembly</directory>
+      <includes>
+        <include>**/*</include>
+      </includes>
     </fileSet>
   </fileSets>
   <files>
