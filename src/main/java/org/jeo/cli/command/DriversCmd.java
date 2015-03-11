@@ -89,10 +89,10 @@ public class DriversCmd extends JeoCmd {
 
                 w.key("keys").object();
                 for (Key<?> key : drv.keys()) {
-                    w.key(key.getName()).object();
-                    w.key("type").value(key.getType().getSimpleName());
-                    if (key.getDefault() != null) {
-                        w.key("default").value(key.getDefault());
+                    w.key(key.name()).object();
+                    w.key("type").value(key.type().getSimpleName());
+                    if (key.def() != null) {
+                        w.key("default").value(key.def());
                     }
                     w.endObject();
                 }
