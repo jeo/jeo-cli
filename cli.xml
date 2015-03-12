@@ -40,6 +40,10 @@
       <outputDirectory>/</outputDirectory>
       <source>LICENSE.md</source>
     </file>
+    <file>
+      <outputDirectory>/</outputDirectory>
+      <source>jeo_bash_comp</source>
+    </file>
   </files>
 
 </assembly>

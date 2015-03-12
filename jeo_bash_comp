@@ -1,0 +1,32 @@
+_jeo()
+{
+    local cur=${COMP_WORDS[COMP_CWORD]}
+    local line=${COMP_LINE}
+    local cmd=${line##*jeo }
+    COMPREPLY=()
+    if [[ "$line" == *"jeo drivers "* ]]; then
+        COMPREPLY=($(compgen -W '-x --debug -h --help' -- $cur))
+    elif [[ "$line" == *"jeo info "* ]]; then
+        COMPREPLY=($(compgen -W '-x --debug -h --help' -- $cur))
+    elif [[ "$line" == *"jeo query "* ]]; then
+        COMPREPLY=($(compgen -W '-x --debug -h --help -b --bbox -c --crs -f --filter -i --input -l --limit -o --output -p --props -s --skip' -- $cur))
+    elif [[ "$line" == *"jeo transform "* ]]; then
+        COMPREPLY=($(compgen -W '-x --debug -h --help -i --input -o --output -s --script' -- $cur))
+    elif [[ "$line" == *"jeo " ]]; then
+        COMPREPLY=($(compgen -W ' drivers info query transform'))
+    elif [[ "$line" == *"jeo"[[:space:]][[:alpha:]]* ]]; then
+        if [[ "drivers" == "$cmd"* ]]; then
+            COMPREPLY=("${COMPREPLY[@]}" $(compgen -W ' drivers'))
+        fi
+        if [[ "info" == "$cmd"* ]]; then
+            COMPREPLY=("${COMPREPLY[@]}" $(compgen -W ' info'))
+        fi
+        if [[ "query" == "$cmd"* ]]; then
+            COMPREPLY=("${COMPREPLY[@]}" $(compgen -W ' query'))
+        fi
+        if [[ "transform" == "$cmd"* ]]; then
+            COMPREPLY=("${COMPREPLY[@]}" $(compgen -W ' transform'))
+        fi
+    fi
+    return 0
+} && complete -f -d -F _jeo jeo
