@@ -27,6 +27,7 @@ import org.jeo.vector.VectorDataset;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.Locale;
 
 import static java.lang.String.format;
 
@@ -43,7 +44,7 @@ public class DatasetSink implements VectorSink {
         try (Disposer disposer = new Disposer()) {
             try {
                 if (disposer.open(Drivers.open(ref.first, Dataset.class)) != null) {
-                    throw new IllegalStateException(format("Dataset %s already exists", ref.first));
+                    throw new IllegalStateException(format(Locale.ROOT, "Dataset %s already exists", ref.first));
                 }
             }
             catch(Exception e) {

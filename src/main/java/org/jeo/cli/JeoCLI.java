@@ -69,7 +69,7 @@ public class JeoCLI {
     /**
      * Creates a new cli instance with the specified input / output streams.
      */
-    public JeoCLI(InputStream in, OutputStream out) {
+    public JeoCLI(InputStream in, PrintStream out) {
         try {
             console = new CLIConsoleReader(in, out);
         } catch (Exception e) {
@@ -153,7 +153,7 @@ public class JeoCLI {
      * Returns a new progress object for displaying a progress bar on the console.
      */
     public ConsoleProgress progress(int total) {
-        return new ConsoleProgress(console(), total);
+        return new ConsoleProgress(console, console.out, total);
     }
 
     JCommander initJCommander() {
@@ -229,8 +229,8 @@ public class JeoCLI {
      */
     static class CLIConsoleReader extends ConsoleReader {
 
-        OutputStream out;
-        public CLIConsoleReader(InputStream in, OutputStream out) throws IOException {
+        PrintStream out;
+        public CLIConsoleReader(InputStream in, PrintStream out) throws IOException {
             super(in, out);
             this.out = out;
         }

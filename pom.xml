@@ -142,4 +142,8 @@
     </profile>
   </profiles>
 
+  <properties>
+    <forbiddenapis.exclude>org/jeo/cli/JeoCLI.class</forbiddenapis.exclude>
+  </properties>
+
 </project>

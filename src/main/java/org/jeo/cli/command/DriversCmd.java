@@ -17,6 +17,7 @@ package org.jeo.cli.command;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 
 import org.jeo.cli.JeoCLI;
 import org.jeo.data.Dataset;
@@ -69,7 +70,7 @@ public class DriversCmd extends JeoCmd {
                     if (!errors.isEmpty()) {
                         w.key("messages").array();
                         for (Throwable t : errors) {
-                            w.value(format("%s: %s", t.getClass().getName(), t.getMessage()));
+                            w.value(format(Locale.ROOT, "%s: %s", t.getClass().getName(), t.getMessage()));
                         }
                         w.endArray();
                     }

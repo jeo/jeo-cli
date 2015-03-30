@@ -31,6 +31,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.Locale;
 
 import static java.lang.String.format;
 
@@ -72,7 +73,7 @@ public class WorkspaceSink implements VectorSink {
             dsName = schema.name();
             if (disposer.open(dest.get(dsName)) != null) {
                 throw new IllegalStateException(
-                format("Data set %s already exists in workspace %s", dsName, ref.first));
+                format(Locale.ROOT, "Data set %s already exists in workspace %s", dsName, ref.first));
             }
 
             try {
@@ -80,7 +81,8 @@ public class WorkspaceSink implements VectorSink {
                 Util.copy(cursor, dataset, source, cli);
             }
             catch(UnsupportedOperationException e) {
-                throw new IllegalStateException(format("Workspace %s does not support creating data sets", ref.first));
+                throw new IllegalStateException(
+                    format(Locale.ROOT, "Workspace %s does not support creating data sets", ref.first));
             }
 
         }

@@ -14,6 +14,8 @@
  */
 package org.jeo.cli.command;
 
+import java.util.Locale;
+
 /**
  * Rendering dimensions, width and height.
  *
@@ -30,6 +32,6 @@ public class Dimension {
 
     @Override
     public String toString() {
-        return String.format("%d,%d", width, height);
+        return String.format(Locale.ROOT, "%d,%d", width, height);
     }
 }

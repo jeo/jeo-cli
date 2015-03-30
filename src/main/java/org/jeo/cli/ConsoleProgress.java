@@ -15,6 +15,7 @@
 package org.jeo.cli;
 
 import java.io.PrintStream;
+import java.util.Locale;
 
 import jline.console.ConsoleReader;
 
@@ -26,11 +27,13 @@ import com.google.common.base.Strings;
 public class ConsoleProgress {
 
     ConsoleReader console;
+    PrintStream output;
     int total;
     int count;
 
-    public ConsoleProgress(ConsoleReader console, int total) {
+    public ConsoleProgress(ConsoleReader console, PrintStream output, int total) {
         this.console = console;
+        this.output = output;
         init(total);
     }
 
@@ -66,19 +69,17 @@ public class ConsoleProgress {
             return this;
         }
 
-        PrintStream out = System.out;
-
         //number of digits in total to padd count
         int n = (int)(Math.log10(total)+1);
 
         StringBuilder sb = new StringBuilder();
 
         // first encode count/total
-        sb.append("[").append(String.format("%"+n+"d", count))
+        sb.append("[").append(String.format(Locale.ROOT, "%"+n+"d", count))
             .append("/").append(total).append("]");
 
         // second is percent
-        sb.append(" ").append(String.format("%3.0f", (count/(float)total * 100))).append("% ");
+        sb.append(" ").append(String.format(Locale.ROOT, "%3.0f", (count/(float)total * 100))).append("% ");
 
         //last is progress bar
         int left = console.getTerminal().getWidth() - sb.length() - 2;
@@ -89,7 +90,7 @@ public class ConsoleProgress {
             .append(Strings.repeat(" ", left-progress))
             .append("]");
 
-        out.print(sb.toString() + "\r");
+        output.print(sb.toString() + "\r");
         return this;
     }
 }

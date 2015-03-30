@@ -13,6 +13,7 @@ import org.jeo.vector.VectorQuery;
 import org.jeo.vector.VectorQueryPlan;
 
 import java.io.IOException;
+import java.util.Locale;
 
 import static java.lang.String.format;
 
@@ -62,7 +63,7 @@ public abstract class VectorCmd extends JeoCmd {
         VectorDataset data = null;
         if (dataRef != null) {
             data = openVectorDataset(dataRef).orElseThrow(
-                () -> new IllegalArgumentException(format("%s is not a data set", dataRef)));
+                () -> new IllegalArgumentException(format(Locale.ROOT, "%s is not a data set", dataRef)));
             cursor = data.cursor(q);
         }
         else {

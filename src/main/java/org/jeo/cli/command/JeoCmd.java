@@ -17,6 +17,7 @@ package org.jeo.cli.command;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URI;
+import java.util.Locale;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -123,7 +124,7 @@ public abstract class JeoCmd {
             dataset = open(ws.get(uri.second));
             if (dataset == null) {
                 throw new IllegalArgumentException(
-                    format("No dataset named %s in workspace: %s", uri.second, uri.first));
+                    format(Locale.ROOT, "No dataset named %s in workspace: %s", uri.second, uri.first));
             }
         }
         else {
