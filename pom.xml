@@ -3,12 +3,12 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.jeo</groupId>
+    <groupId>io.jeo</groupId>
     <artifactId>jeo-parent</artifactId>
     <version>0-SNAPSHOT</version>
   </parent>
 
-  <groupId>org.jeo</groupId>
+  <groupId>io.jeo</groupId>
   <artifactId>jeo-cli</artifactId>
   <name>CLI Module</name>
   <packaging>jar</packaging>
@@ -23,32 +23,32 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.jeo</groupId>
+      <groupId>io.jeo</groupId>
       <artifactId>jeo-csv</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.jeo</groupId>
+      <groupId>io.jeo</groupId>
       <artifactId>jeo-postgis</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.jeo</groupId>
+      <groupId>io.jeo</groupId>
       <artifactId>jeo-mongo</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.jeo</groupId>
+      <groupId>io.jeo</groupId>
       <artifactId>jeo-geopkg</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.jeo</groupId>
+      <groupId>io.jeo</groupId>
       <artifactId>jeo-protobuf</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.jeo</groupId>
+      <groupId>io.jeo</groupId>
       <artifactId>jeo-gdal</artifactId>
       <version>${project.version}</version>
     </dependency>
@@ -67,7 +67,7 @@
       <version>2.12.1</version>
     </dependency>
     <dependency>
-      <groupId>org.jeo</groupId>
+      <groupId>io.jeo</groupId>
       <artifactId>jeo</artifactId>
       <version>${project.version}</version>
       <classifier>tests</classifier>
@@ -134,7 +134,7 @@
       <id>geotools</id>
       <dependencies>
         <dependency>
-          <groupId>org.jeo</groupId>
+          <groupId>io.jeo</groupId>
           <artifactId>jeo-geotools</artifactId>
           <version>${project.version}</version>
         </dependency>
