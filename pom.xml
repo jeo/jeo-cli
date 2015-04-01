@@ -143,7 +143,7 @@
   </profiles>
 
   <properties>
-    <forbiddenapis.exclude>org/jeo/cli/JeoCLI.class</forbiddenapis.exclude>
+    <forbiddenapis.exclude>io/jeo/cli/JeoCLI.class</forbiddenapis.exclude>
   </properties>
 
 </project>
