@@ -102,7 +102,7 @@
           </platforms>
           <programs>
             <program>
-              <mainClass>org.jeo.cli.JeoCLI</mainClass>
+              <mainClass>io.jeo.cli.JeoCLI</mainClass>
               <name>jeo</name>
             </program>
           </programs>
