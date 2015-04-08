@@ -1,0 +1,20 @@
+.TH "jeo-info" "1" "12 March 2015" "version 0.5"
+.SH NAME
+jeo info
+.SH DESCRIPTION
+The info command provides summary information about a data source.
+.PP
+The command takes a single argument in the form of a URI specifying the data source to summarize. When run with a workspace URI the command lists the contents of the workspace.
+.PP
+jeo info pg://usa
+.PP
+When run with a data set URI the command summarizes the contents of the dataset.
+.PP
+jeo info pg://usa#states
+.SH USAGE
+jeo info <uri>
+.SH OPTIONS
+-h --help: Provides help for this command.  The default is false
+.PP
+-x --debug: Runs the command in debug mode.  The default is false
+.PP
