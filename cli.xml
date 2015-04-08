@@ -29,6 +29,13 @@
         <include>**/*</include>
       </includes>
     </fileSet>
+      <fileSet>
+        <outputDirectory>/man/man1</outputDirectory>
+        <directory>${project.basedir}/src/main/man</directory>
+        <includes>
+            <include>*</include>
+        </includes>
+      </fileSet>
   </fileSets>
   <files>
     <file>

@@ -1,0 +1,19 @@
+.TH "jeo-transform" "1" "12 March 2015" "version 0.5"
+.SH NAME
+jeo tranform
+.SH DESCRIPTION
+The tranform command transforms features from the input datasource and writes them to the output datasource.
+.PP
+jeo transform -i pg://usa#states -o states.shp -s buffer.js
+.SH USAGE
+jeo transform [options]
+.SH OPTIONS
+-h --help: Provides help for this command.  The default is false
+.PP
+-x --debug: Runs the command in debug mode.  The default is false
+.PP
+-i --input: Input data set
+.PP
+-o --output: Output for results. The default is geojson.
+.PP
+-s --script: A JavaScript file with a function named transform that accepts a feature cursor

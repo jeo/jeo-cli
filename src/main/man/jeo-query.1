@@ -1,0 +1,32 @@
+.TH "jeo-query" "1" "12 March 2015" "version 0.5"
+.SH NAME
+jeo query
+.SH DESCRIPTION
+The query command filters features from the input datasource and writes them to the output datasource.
+.PP
+The query command takes an input uri datasource and an optional output uri datasource.  If the output datasource
+is not present, the command will output the features to standard out.
+.PP
+jeo query -i pg://usa#states -o states.shp -c EPSG:4326
+.SH USAGE
+jeo query [options]
+.SH OPTIONS
+-h --help: Provides help for this command.  The default is false
+.PP
+-x --debug: Runs the command in debug mode.  The default is false
+.PP
+-b --bbox: Bounding box (xmin,ymin,xmax,ymax)
+.PP
+-c --crs: Projection of input
+.PP
+-f --filter: Predicate used to constrain results
+.PP
+-i --input: Input data set
+.PP
+-l --limit: Maximum number of results to return
+.PP
+-o --output: The output for results.  The defaul is geojson
+.PP
+-p --props: Feature properties to include, comma separated
+.PP
+-s --skip: Number of results to skip over
