@@ -13,14 +13,6 @@
   <name>CLI Module</name>
   <packaging>jar</packaging>
 
- <repositories>
-    <repository>
-      <id>boundless</id>
-      <name>Boundless Maven Repository</name>
-      <url>http://repo.boundlessgeo.com/main</url>
-    </repository>
-  </repositories>
-
   <dependencies>
     <dependency>
       <groupId>io.jeo</groupId>
