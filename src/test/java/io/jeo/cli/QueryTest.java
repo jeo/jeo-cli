@@ -10,7 +10,7 @@ import io.jeo.data.mem.MemWorkspace;
 import io.jeo.data.mem.Memory;
 import io.jeo.geom.Geom;
 import io.jeo.geopkg.GeoPackage;
-import io.jeo.protobuf.ProtobufReader;
+import io.jeo.geobuf.GeobufReader;
 import io.jeo.vector.Feature;
 import io.jeo.vector.Features;
 import io.jeo.vector.Schema;
@@ -93,14 +93,11 @@ public class QueryTest extends CLITestSupport {
     }
 
     @Test
-    public void testOutputToPBF() throws Exception {
-        cli.handle("query", "-i", "mem://test#states", "-f", "STATE_ABBR = 'CA'", "-o", "pbf");
+    public void testOutputToGBF() throws Exception {
+        cli.handle("query", "-i", "mem://test#states", "-f", "STATE_ABBR = 'CA'", "-o", "gbf");
 
-        ProtobufReader pbf = new ProtobufReader(output());
-        Schema schema = pbf.schema();
-        assertNotNull(schema);
-
-        Feature f = pbf.feature(schema);
+        GeobufReader gbf = new GeobufReader(output());
+        Feature f = gbf.featureCollection().first().get();
         assertEquals("California", f.get("STATE_NAME"));
     }
 

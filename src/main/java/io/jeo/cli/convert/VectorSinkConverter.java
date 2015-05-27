@@ -4,7 +4,7 @@ import com.beust.jcommander.IStringConverter;
 import io.jeo.cli.Util;
 import io.jeo.cli.command.DatasetSink;
 import io.jeo.cli.command.GeoJSONSink;
-import io.jeo.cli.command.ProtobufSink;
+import io.jeo.cli.command.GeobufSink;
 import io.jeo.cli.command.VectorSink;
 import io.jeo.cli.command.WorkspaceSink;
 import io.jeo.data.Dataset;
@@ -18,8 +18,8 @@ import java.net.URI;
 public class VectorSinkConverter implements IStringConverter<VectorSink> {
     @Override
     public VectorSink convert(String str) {
-        if ("pbf".equalsIgnoreCase(str)) {
-            return new ProtobufSink();
+        if ("gbf".equalsIgnoreCase(str)) {
+            return new GeobufSink();
         }
         if ("geojson".equalsIgnoreCase(str) || "json".equalsIgnoreCase(str)) {
             return new GeoJSONSink();

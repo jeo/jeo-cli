@@ -2,8 +2,8 @@ package io.jeo.cli.command;
 
 import io.jeo.cli.JeoCLI;
 import io.jeo.data.Dataset;
-import io.jeo.protobuf.ProtobufCursor;
-import io.jeo.protobuf.ProtobufReader;
+import io.jeo.geobuf.GeobufCursor;
+import io.jeo.geobuf.GeobufReader;
 import io.jeo.util.Function;
 import io.jeo.util.Optional;
 import io.jeo.util.Pair;
@@ -45,7 +45,7 @@ public abstract class VectorCmd extends JeoCmd {
     protected FeatureCursor cursorFromStdin(JeoCLI cli) throws IOException {
         // look for input from stdin
         // TODO: something better than just assuming pbf
-        return new ProtobufCursor(new ProtobufReader(cli.console().getInput()).setReadUntilLastFeature());
+        return new GeobufReader(cli.console().getInput()).featureCollection();
     }
 
     /**
