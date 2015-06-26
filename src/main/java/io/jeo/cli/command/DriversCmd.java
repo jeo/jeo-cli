@@ -25,6 +25,7 @@ import io.jeo.data.Driver;
 import io.jeo.data.Drivers;
 import io.jeo.data.Workspace;
 import io.jeo.geojson.GeoJSONWriter;
+import io.jeo.json.JeoJSONWriter;
 import io.jeo.util.Key;
 
 import com.beust.jcommander.Parameter;
@@ -41,7 +42,7 @@ public class DriversCmd extends JeoCmd {
 
     @Override
     protected void run(JeoCLI cli) throws Exception {
-        GeoJSONWriter w = cli.newJSONWriter();
+        JeoJSONWriter w = cli.newJSONWriter();
 
         if (drivers != null && !drivers.isEmpty()) {
             if (drivers.size() > 1) {
@@ -54,52 +55,7 @@ public class DriversCmd extends JeoCmd {
                     throw new IllegalArgumentException("No such driver: " + driver);
                 }
 
-                w.object();
-                printBrief(drv, w);
-
-                w.key("aliases").array();
-                for (String a : drv.aliases()) {
-                    w.value(a);
-                }
-                w.endArray();
-
-
-                Messages msgs = new Messages();
-                if (!drv.isEnabled(msgs)) {
-                    List<Throwable> errors = msgs.list();
-                    if (!errors.isEmpty()) {
-                        w.key("messages").array();
-                        for (Throwable t : errors) {
-                            w.value(format(Locale.ROOT, "%s: %s", t.getClass().getName(), t.getMessage()));
-                        }
-                        w.endArray();
-                    }
-                }
-
-                w.key("type");
-                Class<?> type = drv.type();
-                if (Workspace.class.isAssignableFrom(type)) {
-                    w.value("workspace");
-                }
-                else if (Dataset.class.isAssignableFrom(type)) {
-                    w.value("dataset");
-                }
-                else {
-                    w.value(drv.type().getSimpleName());
-                }
-
-                w.key("keys").object();
-                for (Key<?> key : drv.keys()) {
-                    w.key(key.name()).object();
-                    w.key("type").value(key.type().getSimpleName());
-                    if (key.def() != null) {
-                        w.key("default").value(key.def());
-                    }
-                    w.endObject();
-                }
-                w.endObject();
-
-                w.endObject();
+                w.driver(drv, null);
             }
             if (drivers.size() > 1) {
                 w.endArray();
