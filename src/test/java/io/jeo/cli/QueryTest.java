@@ -88,7 +88,7 @@ public class QueryTest extends CLITestSupport {
 
         assertEquals(1, target.count(new VectorQuery()));
 
-        Feature f = target.cursor(new VectorQuery()).first().get();
+        Feature f = target.read(new VectorQuery()).first().get();
         assertEquals("California", f.get("STATE_NAME"));
     }
 

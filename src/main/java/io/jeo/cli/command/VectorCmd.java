@@ -2,7 +2,6 @@ package io.jeo.cli.command;
 
 import io.jeo.cli.JeoCLI;
 import io.jeo.data.Dataset;
-import io.jeo.geobuf.GeobufCursor;
 import io.jeo.geobuf.GeobufReader;
 import io.jeo.util.Function;
 import io.jeo.util.Optional;
@@ -64,7 +63,7 @@ public abstract class VectorCmd extends JeoCmd {
         if (dataRef != null) {
             data = openVectorDataset(dataRef).orElseThrow(
                 () -> new IllegalArgumentException(format(Locale.ROOT, "%s is not a data set", dataRef)));
-            cursor = data.cursor(q);
+            cursor = data.read(q);
         }
         else {
             // look for a direct cursor from stdin

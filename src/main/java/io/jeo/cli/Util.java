@@ -86,7 +86,7 @@ public class Util {
                 Optional.of(dataset instanceof Transactional ? ((Transactional) dataset).transaction(null) : null);
 
             FeatureCursor target =
-                disposer.open(dataset.cursor(new VectorQuery().append().transaction(tx.orElse(null))));
+                disposer.open(dataset.read(new VectorQuery().append().transaction(tx.orElse(null))));
 
             try {
                 ConsoleProgress progress = cli.progress(-1);
