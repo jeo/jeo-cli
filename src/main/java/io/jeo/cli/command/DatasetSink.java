@@ -22,6 +22,7 @@ import io.jeo.data.Drivers;
 import io.jeo.util.Disposer;
 import io.jeo.util.Pair;
 import io.jeo.vector.Feature;
+import io.jeo.vector.Features;
 import io.jeo.vector.Schema;
 import io.jeo.vector.VectorDataset;
 
@@ -57,8 +58,9 @@ public class DatasetSink implements VectorSink {
 
             if (schema == null) {
                 Cursor<Feature> buffered = cursor.buffer(1);
-                schema = cursor.buffer(1).first().map((f) -> f.schema()).orElseThrow(() ->
-                    new IllegalStateException("No data to read"));
+                schema = cursor.buffer(1).first()
+                    .map((f) -> Features.schema(source != null ? source.name() : "features", f))
+                    .orElseThrow(() -> new IllegalStateException("No data to read"));
                 buffered.rewind();
             }
 

@@ -24,6 +24,7 @@ import java.io.PrintStream;
 
 import com.google.common.io.ByteStreams;
 
+import io.jeo.data.Cursor;
 import io.jeo.json.JSONArray;
 import io.jeo.json.JSONObject;
 import io.jeo.TestData;
@@ -31,6 +32,7 @@ import io.jeo.data.mem.Memory;
 import io.jeo.geojson.GeoJSONReader;
 import io.jeo.json.parser.JSONParser;
 import io.jeo.json.parser.ParseException;
+import io.jeo.vector.Feature;
 import io.jeo.vector.FeatureCursor;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -89,7 +91,7 @@ public class CLITestSupport {
     /**
      * Returns the command output as a feature cursor.
      */
-    protected FeatureCursor featureOutput() throws IOException {
+    protected Cursor<Feature> featureOutput() throws IOException {
         GeoJSONReader reader = new GeoJSONReader();
         return reader.features(output());
     }

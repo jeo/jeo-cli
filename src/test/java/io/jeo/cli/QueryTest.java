@@ -5,7 +5,7 @@ import com.vividsolutions.jts.geom.Point;
 import io.jeo.Tests;
 import io.jeo.data.Cursor;
 import io.jeo.data.Workspace;
-import io.jeo.data.mem.MemVector;
+import io.jeo.data.mem.MemVectorDataset;
 import io.jeo.data.mem.MemWorkspace;
 import io.jeo.data.mem.Memory;
 import io.jeo.geom.Geom;
@@ -13,6 +13,7 @@ import io.jeo.geopkg.GeoPackage;
 import io.jeo.geobuf.GeobufReader;
 import io.jeo.vector.Feature;
 import io.jeo.vector.Features;
+import io.jeo.vector.ListFeature;
 import io.jeo.vector.Schema;
 import io.jeo.vector.VectorDataset;
 import io.jeo.vector.VectorQuery;
@@ -21,7 +22,6 @@ import org.junit.Test;
 import java.io.File;
 import java.util.Set;
 
-import static java.lang.String.format;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -106,9 +106,9 @@ public class QueryTest extends CLITestSupport {
         File gpkg = new File(Tests.newTmpDir(), "foo.gpkg");
 
         Schema foo = Schema.build("foo").field("geo", Point.class).field("name", String.class).schema();
-        MemVector mem = Memory.open("test").remove("foo").create(foo);
-        mem.add(Features.create(null, foo, Geom.point(0,0), "zero"));
-        mem.add(Features.create(null, foo, Geom.point(1,1), "one"));
+        MemVectorDataset mem = Memory.open("test").remove("foo").create(foo);
+        mem.add(new ListFeature(foo, Geom.point(0,0), "zero"));
+        mem.add(new ListFeature(foo, Geom.point(1,1), "one"));
 
         cli.handle("query", "-i", "mem://test#foo", "-c", "epsg:4326", "-o", gpkg.getPath());
 

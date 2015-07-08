@@ -22,6 +22,7 @@ import io.jeo.data.Workspace;
 import io.jeo.util.Disposer;
 import io.jeo.util.Pair;
 import io.jeo.vector.Feature;
+import io.jeo.vector.Features;
 import io.jeo.vector.Schema;
 import io.jeo.vector.SchemaBuilder;
 import io.jeo.vector.VectorDataset;
@@ -59,7 +60,8 @@ public class WorkspaceSink implements VectorSink {
             cursor = cursor.buffer(1);
 
             Schema schema = cursor.first()
-                .orElseThrow(() -> new IllegalArgumentException("No data to write")).schema();
+                .map((f) -> Features.schema(source.name(), f))
+                .orElseThrow(() -> new IllegalArgumentException("No data to write"));
 
             cursor.rewind();
 

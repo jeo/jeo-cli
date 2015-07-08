@@ -23,6 +23,7 @@ import io.jeo.util.Optional;
 import io.jeo.util.Pair;
 import io.jeo.vector.Feature;
 import io.jeo.vector.FeatureCursor;
+import io.jeo.vector.FeatureWriteCursor;
 import io.jeo.vector.Features;
 import io.jeo.vector.VectorDataset;
 import io.jeo.vector.VectorQuery;
@@ -85,8 +86,8 @@ public class Util {
             Optional<Transaction> tx =
                 Optional.of(dataset instanceof Transactional ? ((Transactional) dataset).transaction(null) : null);
 
-            FeatureCursor target =
-                disposer.open(dataset.read(new VectorQuery().append().transaction(tx.orElse(null))));
+            FeatureWriteCursor target =
+                disposer.open(dataset.append(new VectorQuery().transaction(tx.orElse(null))));
 
             try {
                 ConsoleProgress progress = cli.progress(-1);
