@@ -15,24 +15,16 @@
 package io.jeo.cli.command;
 
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 
 import io.jeo.cli.JeoCLI;
-import io.jeo.data.Dataset;
 import io.jeo.data.Driver;
 import io.jeo.data.Drivers;
-import io.jeo.data.Workspace;
 import io.jeo.geojson.GeoJSONWriter;
 import io.jeo.json.JeoJSONWriter;
-import io.jeo.util.Key;
 
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
-import io.jeo.util.Messages;
-
-import static java.lang.String.format;
 
 @Parameters(commandNames="drivers", commandDescription="List available format drivers")
 public class DriversCmd extends JeoCmd {
@@ -62,12 +54,8 @@ public class DriversCmd extends JeoCmd {
             }
         }
         else {
-            Iterator<Driver<?>> it = Drivers.list();
-            
             w.array();
-            while(it.hasNext()) {
-                Driver<?> drv = it.next();
-                
+            for (Driver<?> drv : Drivers.list()) {
                 w.object();
 
                 printBrief(drv, w);
