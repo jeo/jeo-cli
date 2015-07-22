@@ -19,6 +19,7 @@ import io.jeo.Tests;
 import org.junit.Test;
 
 import java.io.File;
+import java.nio.file.Path;
 
 import static org.junit.Assert.assertTrue;
 
@@ -26,8 +27,8 @@ public class TransformTest extends CLITestSupport {
 
     @Test
     public void testScriptTransform() throws Exception {
-        File script = Tests.newTmpFile(getClass().getResourceAsStream("transform.js"));
-        cli.handle("transform", "-i", "mem://test#states", "-s", script.getAbsolutePath());
+        Path script = Tests.newTmpFile(getClass().getResourceAsStream("transform.js"));
+        cli.handle("transform", "-i", "mem://test#states", "-s", script.toFile().getAbsolutePath());
 
         featureOutput().each((f) -> {
             assertTrue(f.geometry() instanceof Point);

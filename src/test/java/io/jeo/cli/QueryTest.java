@@ -12,14 +12,13 @@ import io.jeo.geom.Geom;
 import io.jeo.geopkg.GeoPackage;
 import io.jeo.geobuf.GeobufReader;
 import io.jeo.vector.Feature;
-import io.jeo.vector.Features;
 import io.jeo.vector.ListFeature;
 import io.jeo.vector.Schema;
 import io.jeo.vector.VectorDataset;
 import io.jeo.vector.VectorQuery;
 import org.junit.Test;
 
-import java.io.File;
+import java.nio.file.Path;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
@@ -103,14 +102,14 @@ public class QueryTest extends CLITestSupport {
 
     @Test
     public void testOutputToGeopkg() throws Exception {
-        File gpkg = new File(Tests.newTmpDir(), "foo.gpkg");
+        Path gpkg = Tests.newTmpDir().resolve("foo.gpkg");
 
         Schema foo = Schema.build("foo").field("geo", Point.class).field("name", String.class).schema();
         MemVectorDataset mem = Memory.open("test").remove("foo").create(foo);
         mem.add(new ListFeature(foo, Geom.point(0,0), "zero"));
         mem.add(new ListFeature(foo, Geom.point(1,1), "one"));
 
-        cli.handle("query", "-i", "mem://test#foo", "-c", "epsg:4326", "-o", gpkg.getPath());
+        cli.handle("query", "-i", "mem://test#foo", "-c", "epsg:4326", "-o", gpkg.toFile().getPath());
 
         Workspace ws = GeoPackage.open(gpkg);
         VectorDataset ds = (VectorDataset) ws.get("foo");
